@@ -80,10 +80,10 @@ console.log(date4);
 let date5 = new Date(2000, 3, 11);
 console.log(date5);
 
-let date6 = new Date()
-date6.setFullYear(2000,3,11);
-date6.setHours(0 , 0 , 0 )
-console.log(date6)
+let date6 = new Date();
+date6.setFullYear(2000, 3, 11);
+date6.setHours(0, 0, 0);
+console.log(date6);
 
 // Needed Output
 
@@ -92,13 +92,13 @@ console.log(date6)
 // ("Mon Oct 25 1982 00:00:00 GMT+0200 (Eastern European Standard Time)");
 
 // assignment 5
-let t0 = performance.now()
-for(i=1;i<100000;i++){
-  // console.log(i)
-}
-let t1 = performance.now()
+let t0 = performance.now();
+// for (i = 1; i < 100000; i++) {
+//   // console.log(i)
+// }
+let t1 = performance.now();
 
-console.log(`Loop Took ${Math.floor(t1-t0)} Milliseconds.`)
+console.log(`Loop Took ${Math.floor(t1 - t0)} Milliseconds.`);
 // Needed Output
 
 // "Loop Took 1921 Milliseconds."
@@ -106,12 +106,15 @@ console.log(`Loop Took ${Math.floor(t1-t0)} Milliseconds.`)
 // assignment 6
 
 // Write Your Generator Function Here
-function* gen(){
-  let index = 1  ;
-  while(true){
-    yield index++ * 14;
-  }
+function* gen() {
+  let num = 14;
+  let difference = 140;
 
+  while (true) {
+    yield num;
+    num += difference;
+    difference += 200;
+  }
 }
 
 let generator = gen();
@@ -125,3 +128,52 @@ console.log(generator.next()); // {value: 2714, done: false}
 console.log(generator.next()); // {value: 3854, done: false}
 console.log(generator.next()); // {value: 5194, done: false}
 console.log(generator.next()); // {value: 6734, done: false}
+
+// assignment 7
+
+function* genNumbers() {
+  yield* [1, 2, 2, 2, 3, 4, 5];
+}
+function* genLetters() {
+  yield* ["A", "B", "B", "B", "C", "D"];
+}
+
+// Write Your Generator Function Here
+function* genAll() {
+  let uniqueValue = new Set();
+
+  for (let value of genNumbers()) {
+    uniqueValue.add(value);
+  }
+
+  for (let value of genLetters()) {
+    uniqueValue.add(value);
+  }
+
+  for (let value of uniqueValue) {
+    yield value;
+  }
+}
+
+let generator2 = genAll();
+
+console.log(generator2.next()); // {value: 1, done: false}
+console.log(generator2.next()); // {value: 2, done: false}
+console.log(generator2.next()); // {value: 3, done: false}
+console.log(generator2.next()); // {value: 4, done: false}
+console.log(generator2.next()); // {value: 5, done: false}
+console.log(generator2.next()); // {value: "A", done: false}
+console.log(generator2.next()); // {value: "B", done: false}
+console.log(generator2.next()); // {value: "C", done: false}
+console.log(generator2.next()); // {value: "D", done: false}
+
+// assignment 8
+
+// main.js File
+
+import calc from "./mod-one.js";
+import * as modOne from "./mod-two.js";
+
+
+console.log(calc(modOne.numOne, modOne.numTwo, modOne.numThree)); // 60
+
